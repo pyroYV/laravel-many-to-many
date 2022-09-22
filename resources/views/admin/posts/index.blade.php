@@ -10,6 +10,7 @@
         <th scope="col">Titolo</th>
         <th scope="col">Autore</th>
         <th scope="col">Data</th>
+        <th scope="col">Tags</th>
         <th scope="col">Extra</th>
         <th scope="col"></th>
       </tr>
@@ -21,6 +22,11 @@
             <td><a href="{{route('admin.posts.show', $post->id)}}">{{$post->post_title}}</a></td>
             <td>{{$post->user->name}}</td>
             <td>{{$post->post_creation_date}}</td>
+            <td>
+                @foreach ($post->tags as $tag)
+                {{$tag->name . ' ' }}
+                @endforeach
+            </td>
             <td><a href="{{ route('admin.posts.edit', $post->id)}}"> <button class="btn btn-warning">Edit</button></td>
             <td>
             <form action =" {{route ('admin.posts.destroy', $post->id) }}"
