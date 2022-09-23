@@ -27,5 +27,17 @@
         {{$message}}
     </div>
     @enderror
+    <div class="mb-3">
+        Tags
+        @foreach ($tags as $tag)
+
+        <div class="form-check">
+            <input type="checkbox" name="tags[]" class="form-check-input" type="checkbox" id="input-tags{{$tag->id}}" value="{{$tag->id}}"
+            {{$post->tags->contains($tag) ? 'checked' : ''}}>
+            <label for="input-tags{{$tag->id}}" class="form-check-label ">{{$tag->name}}</label>
+        </div>
+
+        @endforeach
+    </div>
 
 

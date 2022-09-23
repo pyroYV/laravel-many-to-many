@@ -37,7 +37,9 @@ class PostController extends Controller
     {
         //
         $post = new Post();
-        return view('admin.posts.create',['post' => $post]);
+        $tags = tag::all();
+
+        return view('admin.posts.create',['post' => $post, 'tags' => $tags]);
     }
 
     /**
@@ -54,6 +56,7 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
+        $newPost->tags()->attach($data['tags']);
 
         return redirect()->route('admin.posts.show', $newPost->id);
     }
@@ -79,7 +82,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findorFail($id);
-        return view('admin.posts.edit',compact('post'));
+        $tags = tag::all();
+
+        return view('admin.posts.edit',compact('post','tags'));
     }
 
     /**
@@ -95,6 +100,7 @@ class PostController extends Controller
         $sentData = $request->all();
         $post = Post::findorFail($id);
         $post->update($sentData);
+        $post->tags()->sync($sentData['tags']);
 
         return redirect()->route('admin.posts.show', $post->id);
     }
