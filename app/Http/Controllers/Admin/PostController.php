@@ -10,6 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Exists;
 
 class PostController extends Controller
 {
@@ -56,7 +57,9 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
-        $newPost->tags()->attach($data['tags']);
+        if (isset($data['tags'])) {
+            $newPost->tags()->attach($data['tags']);
+        };
 
         return redirect()->route('admin.posts.show', $newPost->id);
     }
@@ -100,7 +103,12 @@ class PostController extends Controller
         $sentData = $request->all();
         $post = Post::findorFail($id);
         $post->update($sentData);
-        $post->tags()->sync($sentData['tags']);
+        if (isset($sentData['tags'])){
+
+            $post->tags()->sync($sentData['tags']);
+        }else{
+            $post->tags()->detach();
+        }
 
         return redirect()->route('admin.posts.show', $post->id);
     }
