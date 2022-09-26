@@ -12,8 +12,14 @@
             @endforeach
         </div>
         <div class="col-12">
-            {{-- <img src="{{$post->post_image}}" alt="image of {{ $post->post_title}}" class="w-100"> --}}
-            <img src="{{asset('/uploads/user/'.Auth::user()->id.'/posts/'.$post->post_image)}}" alt="" class="w-100">
+            @if (substr( filter_var($post->post_image), 0, 4 ) === "http" ))
+
+            <img src="{{$post->post_image}}" alt="image of {{ $post->post_title}}" class="w-100">
+            @else
+            <img src="{{asset('storage/'.$post->post_image)}}" alt="" class="w-100">
+
+            @endif
+
         </div>
         <div class="col-12">
 

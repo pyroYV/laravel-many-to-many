@@ -103,6 +103,7 @@ class PostController extends Controller
     {
         //
         $sentData = $request->all();
+        $sentData['post_image'] = Storage::put('uploads/user/'.Auth::user()->id.'/posts', $sentData['post_image']);
         $post = Post::findorFail($id);
         $post->update($sentData);
         if (isset($sentData['tags'])){
