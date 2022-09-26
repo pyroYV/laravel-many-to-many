@@ -10,6 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Exists;
 
 class PostController extends Controller
@@ -54,6 +55,7 @@ class PostController extends Controller
         $data = $request->all();
         $data['user_id']= Auth::user()->id;
         $data['post_creation_date'] = new DateTime();
+        $data['post_image'] = Storage::put('uploads/user/'.Auth::user()->id.'/posts', $data['post_image']);
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();

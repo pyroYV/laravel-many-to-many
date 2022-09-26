@@ -20,7 +20,8 @@
     @enderror
     <div class="mb-3">
         <label for="image" class="form-label">Image</label>
-        <input type="text" class="form-control" id="image" value="{{old('image', $post->post_image)}}" name="post_image">
+       {{--  <input type="text" class="form-control" id="image" value="{{old('image', $post->post_image)}}" name="post_image"> --}}
+        <input type="file" class="form-control" id="image" name="post_image">
     </div>
     @error('image')
     <div class="alert alert-danger">

@@ -12,7 +12,8 @@
             @endforeach
         </div>
         <div class="col-12">
-            <img src="{{$post->post_image}}" alt="image of {{ $post->post_title}}" class="w-100">
+            {{-- <img src="{{$post->post_image}}" alt="image of {{ $post->post_title}}" class="w-100"> --}}
+            <img src="{{asset('/uploads/user/'.Auth::user()->id.'/posts/'.$post->post_image)}}" alt="" class="w-100">
         </div>
         <div class="col-12">
 
